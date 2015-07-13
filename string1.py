@@ -24,8 +24,15 @@
 # So donuts(5) returns 'Number of donuts: 5'
 # and donuts(23) returns 'Number of donuts: many'
 def donuts(count):
-  # +++your code here+++
-  return
+  if not isinstance(count, int):
+    raise TypeError("Please provide a count of type int")
+
+  if count >= 10:
+    donutsCount = "many"
+  else:
+    donutsCount = str(count)
+
+  return " ".join(["Number of donuts:", donutsCount])
 
 
 # B. both_ends
@@ -83,6 +90,12 @@ def main():
   test(donuts(9), 'Number of donuts: 9')
   test(donuts(10), 'Number of donuts: many')
   test(donuts(99), 'Number of donuts: many')
+
+  try:
+    donuts("foo")
+  except TypeError:
+    print '%s %s throws exception' % (" OK", "\"foo\" as count")
+
 
   print
   print 'both_ends'
