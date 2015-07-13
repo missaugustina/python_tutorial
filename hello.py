@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+# Example from Google Python Class Day 1 - https://www.youtube.com/watch?v=tKTZoB2Vjuk
+
 import sys # includes operating system functionality
 
 def Hello(name):
