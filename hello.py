@@ -2,8 +2,11 @@
 
 import sys # includes operating system functionality
 
+def Hello(name):
+  return 'Hello ' + name + '!!!'
+
 def main ():
-  print sys.argv
+  print Hello(sys.argv[1])
 
 if __name__ == '__main__':
   main()
