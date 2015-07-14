@@ -1,10 +1,14 @@
 #!/usr/bin/python2.4 -tt
+# -*- coding: utf-8 -*-
 # Copyright 2010 Google Inc.
 # Licensed under the Apache License, Version 2.0
 # http://www.apache.org/licenses/LICENSE-2.0
 
 # Google's Python Class
 # http://code.google.com/edu/languages/google-python-class/
+
+import re
+import math
 
 # Additional basic string exercises
 
@@ -16,7 +20,17 @@
 # If the string length is less than 3, leave it unchanged.
 # Return the resulting string.
 def verbing(s):
-  # +++your code here+++
+  if not (isinstance(s, str) or isinstance(s, unicode)):
+    raise TypeError("Please provide a string")
+
+  if len(s) < 3:
+    return s
+  else:
+    # check if the string ends in ing
+    if re.search(r'ing$', s):
+      return s + 'ly'
+    else: # if no replace then return s + ing
+      return s + 'ing'
   return
 
 
@@ -29,9 +43,9 @@ def verbing(s):
 # So 'This dinner is not that bad!' yields:
 # This dinner is good!
 def not_bad(s):
-  # +++your code here+++
-  return
-
+  if not (isinstance(s, str) or isinstance(s, unicode)):
+    raise TypeError("Please provide a string")
+  return re.sub(r'not.*bad', 'good', s)
 
 # F. front_back
 # Consider dividing a string into two halves.
@@ -40,9 +54,19 @@ def not_bad(s):
 # e.g. 'abcde', the front half is 'abc', the back half 'de'.
 # Given 2 strings, a and b, return a string of the form
 #  a-front + b-front + a-back + b-back
+def split_at(s):
+  halfLen = int(math.ceil(float(len(s)) / 2))
+  return [s[0:halfLen], s[halfLen:]]
+
 def front_back(a, b):
-  # +++your code here+++
-  return
+  if not (isinstance(a, str) or isinstance(s, unicode)):
+    raise TypeError("Please provide a string")
+
+  if not (isinstance(b, str) or isinstance(s, unicode)):
+    raise TypeError("Please provide a string")
+
+  words = split_at(a) + split_at(b)
+  return "".join([words[0], words[2], words[1], words[3]])
 
 
 # Simple provided test() function used in main() to print
@@ -62,6 +86,11 @@ def main():
   test(verbing('hail'), 'hailing')
   test(verbing('swiming'), 'swimingly')
   test(verbing('do'), 'do')
+  test(verbing('mingling'), 'minglingly')
+  try:
+    verbing(123)
+  except TypeError:
+    print '%s %s throws exception' % (" OK", "\"123\" as s")
 
   print
   print 'not_bad'
