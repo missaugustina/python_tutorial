@@ -8,7 +8,6 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 
 import re
-import unicodedata
 
 # Google's Python Class
 # http://code.google.com/edu/languages/google-python-class/
