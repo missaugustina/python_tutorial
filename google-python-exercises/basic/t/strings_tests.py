@@ -35,16 +35,16 @@ class TestStringMethods(unittest.TestCase):
         string1.fix_start(123)
 
   def test_mix_up(self):
-    self.assertEquals(string1.mix_up('mix', 'pod'), 'pox mid')
-    self.assertEquals(string1.mix_up('dog', 'dinner'), 'dig donner')
-    self.assertEquals(string1.mix_up('gnash', 'sport'), 'spash gnort')
-    self.assertEquals(string1.mix_up('pezzy', 'firm'), 'fizzy perm')
-    self.assertEquals(string1.mix_up(u'rote', u'äpfel'), u'äpte rofel')
-    with self.assertRaises(TypeError):
+    self.assertEquals(string1.mix_up('mix', 'pod'), 'pox mid', 'Check 3 char strings')
+    self.assertEquals(string1.mix_up('dog', 'dinner'), 'dig donner', 'Check first string is shorter than the second')
+    self.assertEquals(string1.mix_up('gnash', 'sport'), 'spash gnort', 'Check two 5 char strings')
+    self.assertEquals(string1.mix_up('pezzy', 'firm'), 'fizzy perm', 'Check first string is longer than second')
+    self.assertEquals(string1.mix_up(u'rote', u'äpfel'), u'äpte rofel', 'Check unicode strings')
+    with self.assertRaises(TypeError): # check 2 int args
         string1.mix_up(123, 456)
-    with self.assertRaises(TypeError):
+    with self.assertRaises(TypeError): # check second arg is an int
         string1.mix_up('abc', 456)
-    with self.assertRaises(TypeError):
+    with self.assertRaises(TypeError): # check first arg is an int
         string1.mix_up(123, 'abc')
 
 if __name__ == '__main__':
