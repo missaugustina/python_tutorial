@@ -1,7 +1,14 @@
 #!/usr/bin/python -tt
+# -*- coding: utf-8 -*-
+# surprised they didn't add this by default!!
+
+
 # Copyright 2010 Google Inc.
 # Licensed under the Apache License, Version 2.0
 # http://www.apache.org/licenses/LICENSE-2.0
+
+import re
+import unicodedata
 
 # Google's Python Class
 # http://code.google.com/edu/languages/google-python-class/
@@ -41,8 +48,23 @@ def donuts(count):
 # so 'spring' yields 'spng'. However, if the string length
 # is less than 2, return instead the empty string.
 def both_ends(s):
-  # +++your code here+++
-  return
+  if not (isinstance(s, str) or isinstance(s, unicode)):
+    raise TypeError("Please provide a string")
+
+  length = len(s)
+  if length < 2:
+    return ""
+  else:
+    # originally had this but if we have less than 4 chars this won't do what the exercise requires
+    # firstAndLast2 = re.compile(r"^(\w{2})(?:.*)(\w{2})$", re.UNICODE)
+
+    frontRe = re.compile(r"^(\w{2})", re.UNICODE)
+    frontResult = re.search(frontRe, s)
+
+    backRe = re.compile(r"(\w{2})$", re.UNICODE)
+    backResult = re.search(backRe, s)
+
+    return "".join([frontResult.group(1), backResult.group(1)])
 
 
 # C. fix_start
@@ -103,6 +125,13 @@ def main():
   test(both_ends('Hello'), 'Helo')
   test(both_ends('a'), '')
   test(both_ends('xyz'), 'xyyz')
+  test(both_ends(u'äpfel'), u'äpel')
+  test(both_ends(u'Γαζέες καὶ μυρτιὲς δὲν θὰ βρῶ πιὰ στὸ χρυσαφὶ ξέφωτο'), u'Γατο')
+  test(both_ends('123Hello'), '12lo')
+  try:
+    both_ends(123)
+  except TypeError:
+    print '%s %s throws exception' % (" OK", "\"123\" as s")
 
   
   print
