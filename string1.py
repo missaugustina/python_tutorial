@@ -77,8 +77,10 @@ def both_ends(s):
 # Hint: s.replace(stra, strb) returns a version of string s
 # where all instances of stra have been replaced by strb.
 def fix_start(s):
-  # +++your code here+++
-  return
+  if not (isinstance(s, str) or isinstance(s, unicode)):
+    raise TypeError("Please provide a string")
+
+  return s[0] + s[1:].replace(s[0], '*')
 
 
 # D. MixUp
@@ -89,8 +91,13 @@ def fix_start(s):
 #   'dog', 'dinner' -> 'dig donner'
 # Assume a and b are length 2 or more.
 def mix_up(a, b):
-  # +++your code here+++
-  return
+  if not (isinstance(a, str) or isinstance(a, unicode)):
+    raise TypeError("Please provide a string")
+
+  if not (isinstance(b, str) or isinstance(b, unicode)):
+    raise TypeError("Please provide a string")
+
+  return " ".join([b[0:2] + a[2:], a[0:2] + b[2:]])
 
 
 # Provided simple test() function used in main() to print
@@ -140,6 +147,11 @@ def main():
   test(fix_start('aardvark'), 'a*rdv*rk')
   test(fix_start('google'), 'goo*le')
   test(fix_start('donut'), 'donut')
+  test(fix_start(u'äpfeläpfel'), u'äpfel*pfel')
+  try:
+    fix_start(123)
+  except TypeError:
+    print '%s %s throws exception' % (" OK", "\"123\" as s")
 
   print
   print 'mix_up'
@@ -147,6 +159,22 @@ def main():
   test(mix_up('dog', 'dinner'), 'dig donner')
   test(mix_up('gnash', 'sport'), 'spash gnort')
   test(mix_up('pezzy', 'firm'), 'fizzy perm')
+  test(mix_up(u'rote', u'äpfel'), u'äpte rofel')
+
+  try:
+    mix_up(123, 456)
+  except TypeError:
+    print '%s %s throws exception' % (" OK", "\"123, 456\" as a, b")
+
+  try:
+    mix_up('abc', 456)
+  except TypeError:
+    print '%s %s throws exception' % (" OK", "\"abc, 456\" as a, b")
+
+  try:
+    mix_up(123, 'abc')
+  except TypeError:
+    print '%s %s throws exception' % (" OK", "\"123, abc\" as a, b")
 
 
 # Standard boilerplate to call the main() function.
