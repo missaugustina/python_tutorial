@@ -13,9 +13,11 @@
 # so [1, 2, 2, 3] returns [1, 2, 3]. You may create a new list or
 # modify the passed in list.
 def remove_adjacent(nums):
-  # +++your code here+++
-  return
-
+  return reduce(
+    lambda acc, x: acc if acc[-1:] == [x] else acc + [x],
+    nums,
+    []
+  )
 
 # E. Given two lists sorted in increasing order, create and return a merged
 # list of all the elements in sorted order. You may modify the passed in lists.
