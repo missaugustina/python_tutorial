@@ -56,7 +56,7 @@ def not_bad(s):
 #  a-front + b-front + a-back + b-back
 def split_at(s):
   halfLen = int(math.ceil(float(len(s)) / 2))
-  return [s[0:halfLen], s[halfLen:]]
+  return (s[0:halfLen], s[halfLen:])
 
 def front_back(a, b):
   if not (isinstance(a, str) or isinstance(s, unicode)):
