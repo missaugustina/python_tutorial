@@ -23,20 +23,18 @@ def remove_adjacent(nums):
 # list of all the elements in sorted order. You may modify the passed in lists.
 # Ideally, the solution should work in "linear" time, making a single
 # pass of both lists.
-def linear_merge(list1, list2):
-  def helper (xs, ys, acc):
+def linear_merge(xs, ys):
     if (not xs) and (not ys):
-      return acc
+      return []
     elif (not xs) and ys:
-      return helper([], ys[1:], acc + ys[:1])
+      return ys[:1] + linear_merge([], ys[1:])
     elif (not ys) and xs:
-      return helper(xs[1:], [], acc + xs[:1])
+      return xs[:1] + linear_merge(xs[1:], [])
     else:
       if xs[0] < ys[0]:
-        return helper(xs[1:], ys[1:], acc + xs[:1] + ys[:1])
+        return xs[:1] + ys[:1] + linear_merge(xs[1:], ys[1:])
       else:
-        return helper(xs[1:], ys[1:], acc + ys[:1] + xs[:1])
-  return helper(list1, list2, [])
+        return ys[:1] + xs[:1] + linear_merge(xs[1:], ys[1:])
 
 # Note: the solution above is kind of cute, but unforunately list.pop(0)
 # is not constant time with the standard python list implementation, so
